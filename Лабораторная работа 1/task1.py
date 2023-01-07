@@ -1,57 +1,71 @@
+import doctest
 class Table:
-    def __init__(self, height: float, width: float, table_legs: int):
+    def __init__(self, length: float, width: float, height: float):
         """
         Создание и подготовка к работе объекта "Стол"
-        :param height: Высота стола (см)
+        :param length: Длина стола (см.)
         :param width: Ширина стола (см)
-        :param table_legs: Число ножек стола (шт.)
-
+        :param height: Высота стола (см)
         Примеры:
-        table = Table(100, 200, 4) # инициализация экземпляра класса
+        table = Table(100, 200, 300) # инициализация экземпляра класса
         """
-        self.init_height(height)
-        self.init_width(width)
-        self.init_legs(table_legs)
+        if length < 0:
+            raise ValueError("Длина не должна быть отрицательным числом")
+        if not isinstance(length, (int, float)):
+            raise TypeError("Длина стола должна быть числом!")
+        self.length = length
 
-    def init_height(self, height):
-        """
-        Функция, которая проверяет высоту стола
-        :param height: Высота стола
-        :return: Высота стола - положительное число
-
-        """
-        if height < 0:
-            raise ValueError("Высота не должна быть отрицательным числом")
-        if not isinstance(height, (int, float)):
-            raise TypeError("Высота стола должна быть числом!")
-        self.height = height
-
-    def init_width(self, width):
-        """
-        Функция, которая проверяет ширину стола
-        :param width: Ширина стола
-        :return: Ширина стола - положительное число
-
-        """
         if width < 0:
             raise ValueError("Ширина не должна быть отрицательным числом")
         if not isinstance(width, (int, float)):
             raise TypeError("Ширина стола должна быть числом!")
         self.width = width
 
-    def init_legs(self, table_legs):
+        if height < 0:
+            raise ValueError("Высота не должна быть отрицательным числом")
+        if not isinstance(height, (int, float)):
+            raise TypeError("Высота стола должна быть числом!")
+        self.height = height
+    def if_can_fit(self, length_space: float, width_space: float, height_space: float):
         """
-        Функция, которая проверяет количество ножек стола
-        :param table_legs: Число ножек стола
-        :return: Число ножек стола - положительное число большее 0
-
+        Проверка возможности стола влезть в указанное пространство
+        :param length: Длина пространства
+        :param width: Ширина пространства
+        :param height: Высота пространства
+        :return: Может ли стол влезть в пространство
+        :raise ValueError: Если один из указанных габаритов пространства отрицательный или не является числом
+        Примеры:
+        table = Table(100,200,300)
+        table.if_can_fit(100,200,300)
         """
-        if table_legs < 1:
-            raise ValueError("Число ножек стола должно быть больше или равно 1")
-        if not isinstance(table_legs, int):
-            raise TypeError("Число ножек стола должно быть целым числом!")
-        self.table_legs = table_legs
-
+        if length_space < 0:
+            raise ValueError("Длина не должна быть отрицательным числом")
+        if not isinstance(length_space, (int, float)):
+            raise TypeError("Длина стола должна быть числом!")
+        if width_space < 0:
+            raise ValueError("Ширина не должна быть отрицательным числом")
+        if not isinstance(width_space, (int, float)):
+            raise TypeError("Ширина стола должна быть числом!")
+        if height_space < 0:
+            raise ValueError("Высота не должна быть отрицательным числом")
+        if not isinstance(height_space, (int, float)):
+            raise TypeError("Высота стола должна быть числом!")
+        ...
+    def if_can_stand(self, legs_number: int):
+        """
+        Проверка, может ли стол устойчиво стоять при указанном числе ножек
+        :param legs_number: Число ножек у стола
+        :return: Может ли стол стоять
+        :raise ValueError: Если указано отрицательное или дробное число ножек
+        Примеры:
+        table = Table(100,200,300)
+        table.if_can_stand(4)
+        """
+        if legs_number < 0:
+            raise ValueError("Число ножек не должно быть отрицательным числом")
+        if not isinstance(legs_number, int):
+            raise TypeError("Число ножек не должно быть дробным числом!")
+        ...
 
 class Fridge:
     def __init__(self, capacity_volume: float, occupied_volume: float):
@@ -60,7 +74,7 @@ class Fridge:
         :param capacity_volume: Объем холодильника
         :param occupied_volume: Объем занимаемых продуктов
         Примеры:
-        >>> glass = Fridge(500, 0)  # инициализация экземпляра класса
+        »> glass = Fridge(500, 0) # инициализация экземпляра класса
         """
         if not isinstance(capacity_volume, (int, float)):
             raise TypeError("Объем холодильника должен быть типа int или float")
@@ -74,14 +88,14 @@ class Fridge:
             raise ValueError("Количество продуктов не может быть отрицательным числом")
         self.occupied_volume = occupied_volume
 
-    def is_empty_fridge(self) -> bool:
-        """
-        Функция которая проверяет является ли холодильник пустым
-        :return: Является ли холодильник пустым
-        Примеры:
-        fridge = Fridge(500, 0)
-        fridge.is_empty_glass()
-        """
+        def is_empty_fridge(self) -> bool:
+            """
+            Функция которая проверяет является ли холодильник пустым
+            :return: Является ли холодильник пустым
+            Примеры:
+            fridge = Fridge(500, 0)
+            fridge.is_empty_glass()
+            """
         ...
 
     def add_product_to_fridge(self, product: float) -> None:
@@ -122,7 +136,7 @@ class Slippers:
         :param size: Российский размер тапок
         :param sole: Уточнение жесткости подошвы у тапок
         Примеры:
-        >>> slippers = Slippers("Клетчатые", 43.5, True)  # инициализация экземпляра класса
+        »> slippers = Slippers("Клетчатые", 43.5, True)
         """
         if not isinstance(color, str):
             raise TypeError("Цвет тапок должен быть формата str")
@@ -138,36 +152,32 @@ class Slippers:
             raise TypeError("Жесткость подошвы должна описываться True или False")
         self.sole = sole
 
-    def init_size(self) -> str:
-        """
-        Функция, которая определяет детский или взрослый размер тапок
-        :return: Является ли размер детским или взрослым
-        Примеры:
-        slipper1 = Slippers("Розовый", 17, True)
-        slipper1.init_size()
-        >> "Тапки детские"
-        """
+        def init_size(self) -> str:
+            """
+            Функция, которая определяет детский или взрослый размер тапок
+            :return: Является ли размер детским или взрослым
+            Примеры:
+            slipper1 = Slippers("Розовый", 17, True)
+            slipper1.init_size()
+            » "Тапки детские"
+            """
         ...
 
-    def cost(self) -> float:
-        """
-        Функция, которая определяет примерную стоимость тапок
-        :return: Возвращает примерное значение стоимости
-        Примеры:
-        slipper1 = Slippers("Молочный", 39, True)
-        fridge.cost()
-        >> "299.99"
-        """
+        def cost(self) -> float:
+            """
+            Функция, которая определяет примерную стоимость тапок
+            :return: Возвращает примерное значение стоимости
+            Примеры:
+            slipper1 = Slippers("Молочный", 39, True)
+            fridge.cost()
+            » "299.99"
+            """
         ...
 
 
 if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
-    pass
-    table1 = Table(30, 40.5, 1)
-    print(table1.height)
-    print(table1.width)
-    print(table1.table_legs)
-    print(help(table1))
+    table1 = Table(100,200,300)
+    fridge1 = Fridge(300,200)
+    print(table1.length)
+    print(fridge1.occupied_volume)
     print(help(Slippers))
