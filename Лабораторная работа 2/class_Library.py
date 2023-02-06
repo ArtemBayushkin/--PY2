@@ -42,12 +42,11 @@ class Library:
     индексация работать не будет, так как нет данных в списке и индексировать нечего."""
 
     def get_index_by_book_id(self, id_):            # Метод, возвращающий ID книги
-        flag = False
         for index, value in enumerate(self.books):  # Перебор ID в списке книг
             if value.id_ == id_:                    # Если во время перебора был найден ID
                 return index                        # ID возвращается
-        if flag is False:                           # Если ID не найден, возвращается ошибка
-            raise ValueError("Книги с запрашиваемым id не существует")
+                                                    
+        raise ValueError("Книги с запрашиваемым id не существует")  # Если ID не найден, возвращается ошибка
 
 
 if __name__ == '__main__':
